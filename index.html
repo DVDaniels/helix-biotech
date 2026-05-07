@@ -4,21 +4,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Helix -- AI-Powered Precision Medicine</title>
-<link href="https://fonts.googleapis.com/css7?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css7?family=Space+Grotesk:wght@300;400;500;600;700&family=Display+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{ --bg:#020a0f; --cyan:#00d4ff; --green:#00ff94; --text:#e8f4f8; --muted:#4a7a8a;}
+:root{ --bg:#020a0f; --cyan:#00d4ff; --green:#00ff94; --purple:#7c3aed; --text:#e8f4f8; --muted:#4a7a8a; --border:rgba(255,255,255,0.07);}
 html{scroll-behavior:smooth;}
 body{font-family:'Space Grotesk',background:var(--bg);color:var(--text);overflow-x:hidden;}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(2,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.07);}
-.nav-name{font-weight:600;font-size:1.1rem;}
-.nav-name span{color:var(--cyan);}
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;z-index:1;padding:6rem 3rem 3rem;}
-h1{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:400;line-height:1.05;margin-bottom:1.5rem;}
-h1 em{font-style:italic;color:var(--cyan);}
-.badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:.72rem;padding:.35rem 1rem;border-radius:100px;margin-bottom:1.5rem;}
-.btn-cyan{background:linear-gradient(135deg,var(--cyan),#00a896);color:var(--bg);padding:.9rem 2rem;font-size:.85rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;border-radius:6px;}
-.gene-display{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24;box:1 solid rgba(0,212,255,0.5) top;}
+
 #dna-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.4;}
-footer{background:rgba(255,255,255,0.02);border-top:1px solid rgba(255,255,255,0.07);padding:2.5rem 3rem;display:flex;justify-content:space-between;position:relative;z-index:1;}
-</style></head><body><canvas id="dna-canvas"></canvas><nav><div class="nav-name">Helix<span>AI</span></div><button class="btn-cyan" style="font-family:inherit;">Request Access</button></nav><section class="hero"><div style="max-width:600px;position:relative;z-index:1;"><div class="badge">Live genomic analysis active</div><h1>Decode disease<br>before it <em>begins.</em></h1><p style="font-size:1rem;color:var(--muted);line-height:1.85;margin-bottom:2.5rem;">Helix combines next-generation sequencing with proprietary AI to deliver precision medicine insights at population scale.</p><button class="btn-cyan">Explore the Platform</button></div></section><footer><div style="font-weight:600;">Helix<span style="color:#00d4ff;">AI</span></div><div style="font-size:.t5rem;color:#4a7a8a;">© 2025 Helix Genomics Inc.</div></footer><script>const c=document.getElementById('dna-canvas');const ctx=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;function draw(t){ctx.clearRect(0,0,c.width,c.height);for(let y=0;y<c.height;y+=8){const x1=c.width/2+Math.sin(y*.02+t)*50;ctx.beginPath();ctx.arc(x1,y,2,0,Math.PI*2);ctx.fillStyle=`rgba(0,212,255,${0.2+Math.sin(y*.02)*.1})`;ctx.fill();const x2=c.width/2-Math.sin(y*.02+t)*50;ctx.beginPath();ctx.arc(x2,y,2,0,Math.PI*2);ctx.fillStyle=`rgba(0,255,148,${0.2+Math.sin(y*.02)*.1})`;ctx.fill();if(y%20===0){ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);ctx.strokeStyle=`rgba(0,168,150,0.1)`;ctx.stroke();}}}let t=0;(function a(){t+=.02;draw(t);requestAnimationFrame(a);})();</script></body></html>
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(2,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-name{font-weight:600;font-size:1.1rem;letter-spacing:.05em;}
+.nav-name span{color:var(--cyan);}
+nav ul{display:flex;gap:2.5rem;list-style:none;}
+nav ul a{color:var(--muted);text-decoration:none;font-size:.8rem;}
+.nav-btn{background:linear-gradient(135deg,var(--cyan),#00a8d0);color:var(--bg);padding:.55rem 1.3rem;font-size:.78rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;border-radius:6px;}
+
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;z-index:1;padding:6rem 3rem 3rem;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:.72rem;font-weight:500;padding:.35rem 1rem;border-radius:100px;margin-bottom:1.5rem;}
+.badge::before{content:'☏';color:var(--green);font-size:.5rem;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%,opacity:1;}50%{opacity:.3;}}
+h1 {font-family:'Display Serif',serif;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:400;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.5rem;}
+h1 em{font-style:italic;color:var(--cyan);}
+.hero-desc{font-size:1rem;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:2.5rem;max-width:480px;}
+.btn-cyan{background:linear-gradient(135deg,var(--cyan),#00a8d0);color:var(--bg);padding:.9rem 2rem;font-size:.85rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;border-radius:6px;box-shadow:0 0 30px rgba(0,212,255,0.3);transition:transform .2s;}
+.btn-cyan:hover{transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:.9rem 2rem;font-size:.85rem;cursor:pointer;font-family:inherit;border-radius:6px;}
+
+.gene-display{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;}
+.gd-header{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:1rem;}
+.gd-live{color:var(--green);display:flex;align-items:center;gap:.4rem;}
+.gd-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1s infinite;}
+.gene-sequence{font-family:'Courier New',monospace;font-size:.7rem;line-height:2.2;letter-spacing:.05em;margin-bottom:1.5rem;}
+.g-A{color:#00d4ff;} .g-T{color:#00ff94;} .g-C{color:#f59e0b;} .g-G{color:#a78bfa;}
+
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:1rem;}
+.metric-item{background:rgba(255,255,255,0.02);padding:1rem;}
+.metric-val{font-size:1.6rem;font-weight:600;color:var(--cyan);line-height:1;margin-bottom:.25rem;}
+.metric-label{font-size:.65rem;color:var(--muted);}
+
+.stats-bann{background:rgba(255,255,255,0.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background-color:var(--border);position:relative;z-index:1;}
+.stat-item{background:var(--bg);padding:2rem;text-align:center;}
+.stat-num{font-family:'Display Serif',serif;font-size:2.5rem;font-weight:400;color:var(--cyan);line-height:1;margin-bottom:.3rem;}
+.stat-label{font-size:.72rem;color:var(--muted);}
+
+.features{padding:8rem 3rem;position:relative;z-index:1;}
+.features-inner{max-width:1200px;margin:0 auto;}
+.sec-label{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:.8rem;}
+.sec-title{font-family:'Display Serif',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:3rem;}
+.sec-title em{font-style:italic;}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+.feat-card{background:var(--bg);padding:2.5rem;transition:background .3s;position:relative;overflow:hidden;}
+.feat-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .4s;}
+.feat-card:hover{background:rgba(0,212,255,0.03);}
+.feat-card:hover::after{width:100%;}
+.feat-icon{width:44px;height:44px;border-radius:10px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.5rem;}
+.feat-title{font-weight:600;font-size:1rem;margin-bottom:.7rem;}
+.feat-desc{font-size:.85rem;color:var(--muted);line-height:1.7;}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+footer{background:rgba(255,255,255,0.02);border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;}.stats-bann{grid-template-columns:1fr 1fr;}.feat-grid{grid-template-columns:1fr;}nav ul{display:none;}footer{flex-direction:column;gap:1rem;}}
+</style></head>
+<body><canvas id="dna-canvas"></canvas>
+<nav><div class="nav-name">Helix<span>AI</span></div><ul><li><a href="#">Platform</a></li><li><a href="#">Research</a></li><li><a href="#">Clinical</a></li><li><a href="#">Partners</a></li></ul><button class="nav-btn">Get Access</button></nav>
+<section class="hero"><div class="hero-inner"><div><div class="badge">Live genomic analysis active</div><h1>Decode disease<br>before it <em>begins.</em></h1><p class="hero-desc">Helix combines next-generation sequencing with proprietary AI to deliver precision medicine insights at population scale.</p><div style="display:flex;gap:1rem;align-items:center;"><button class="btn-cyan">Explore the Platform</button><button class="btn-outline">Request Demo</button></div></div><div class="gene-display"><div class="gd-header"><span>GENOMIC ANALYSIS / SAMPLE-2025-8124</span><div class="gd-live">LIVE</div></div><div class="gene-sequence"><span class="g-A">A</span><span class="g-T">T</span><span class="g-C">C</span><span class="g-G">G</span><span class="g-A">A</span><span class="g-T">T</span><span class="g-C">C</span><span class="g-A">A</span><span class="g-G">G</span><span class="g-T">T</span><span class="g-C">C</pan><span class="g-A">A</span><span class="g-T">T</span><span class="g-G">G</span><span class="g-C">C</span><span class="g-A">A</span><span class="g-G">G</span><span class="g-T">T</span><span class="g-A">A</span><span class="g-C">C</span></div><div class="metrics-grid"><div class="metric-item"><div class="metric-val" id="mutations">0</div><div class="metric-label">Variants Identified</div></div><div class="metric-item"><div class="metric-val" id="coverage">0x</div><div class="metric-label">Coverage Depth</div></div><div class="metric-item"><div class="metric-val" id="accuracy">0%</div><div class="metric-label">Call Accuracy</div></div><div class="metric-item"><div class="metric-val" id="risk">LOW</div><div class="metric-label">Risk Score</div></div></div></div></div></div></section>
+<div class="stats-bann"><div class="stat-item reveal"><div class="stat-num">48M+</div><div class="stat-label">Genomes Sequenced</div></div><div class="stat-item reveal"><div class="stat-num">99.9X</div><div class="stat-label">Coverage Accuracy</div></div><div class="stat-item reveal"><div class="stat-num">28hr</div><div class="stat-label">Avg Turnaround Time</div></div><div class="stat-item reveal"><div class="stat-num">140+</div><div class="stat-label">Clinical Partners</div></div></div>
+<section class="features"><div class="features-inner"><div class="reveal"><div class="sec-label">Platform</div><h2 class="sec-title">Genomics at <em>machine speed</em></h2></div><div class="feat-grid"><div class="feat-card reveal"><div class="feat-icon">�</div><div class="feat-title">Whole Genome Sequencing</div><div class="feat-desc">Complete 3.2Gb genome analysis with 99.9% accuracy in under 28 hours. NOVASeq X Plus integration.</div></div><div class="feat-card reveal"><div class="feat-icon">🤁</div><div class="feat-title">AI-Pathogen Detection</div><div class="feat-desc">Simultaneous screening of 4,000+ pathogens with low-frequency variant detection down to 0.1%.</div></div><div class="feat-card reveal"><div class="feat-icon">💱</div><div class="feat-title">Pharmacogenomics</div><div class="feat-desc">Drug response prediction across 300+ medications. PGx panel covering all CYP enzymes.</div></div><div class="feat-card reveal"><div class="feat-icon">🔙</div><div class="feat-title">Clinical Reporting</div><div class="feat-desc">CAP-accredited reports with actionable insights. Direct EMR integration via HL7 FHIR.</div></div><div class="feat-card reveal"><div class="feat-icon">🔍</div><div class="feat-title">Predictive IA Mdels</div><div class="feat-desc">Polygenic risk scoring for 200+ diseases. Trained on 500K longitudinal patient datasets.</div></div><div class="feat-card reveal"><div class="feat-icon">🕗</div><div class="feat-title">Global Genome DB</div><div class="feat-desc">Cross-reference against 48M+ de-identified genomes. Continuous learning as data grows.</div></div></div></div></section>
+<footer><div style="font-weight:600;font-size:1rem;">Helix<span style="color:var(--cyan);">AI</span></div><div style="display:flex;gap:2rem;"><a href="#" style="font-size:.8rem;color:var(--muted);text-decoration:none;">Privacy</a><a href="#" style="font-size:.8rem;color:var(--muted);text-decoration:none;">Compliance</a><a href="#" style="font-size:.8rem;color:var(--muted);text-decoration:none;">Contact</a></div><div style="font-size:.t5rem;color:var(--muted);">© 2025 Helix Genomics Inc. CAP-accredited.</div></footer>
+<script>
+// DNA CANVAS
+const c = document.getElementById('dna-canvas');
+const ctx = c.getContext('2d');
+c.width = window.innerWidth; c.height = window.innerHeight;
+function drawDNA(t) {
+  ctx.clearRect(0,0,c.width,c.height);
+  for(let y=0;y<c.height;y+=8) {
+    const x1=c.width/2+Math.sin(y*.02+t)*80;
+    ctx.beginPath();ctx.arc(x1,y,2,0,Math.PI*2);ctx.fillStyle=`rgba(0,212,255,{0+0.3*Math.sin(yth*0.05)})`;ctx.fill();
+    const x2=c.width/2-Math.sin(yth*.02+t)*80;
+    ctx.beginPath();ctx.arc(x2,y,2,0,Math.PI*2);ctx.fillStyle=`rgba(0,255,148,0.25)`;ctx.fill();
+    if(y%20===0){ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);ctx.strokeStyle=`rgba(0,168,150,0.15)`;ctx.stroke();}
+  }
+}
+let time=0;(function loop(){time+=.02;drawDNA(time);requestAnimationFrame(loop);})();
+window.addEventListener('resize',()=>{c.width=window.innerWidth;c.height=window.innerHeight;});
+
+// ANIMATE METRICS
+setTimeout(()=>{
+  let m=0;const i=setInterval(()=>{m+=47;document.getElementById('mutations').textContent=m;if(m>=2347)clearInterval(i);},20);
+  let cov=0;const j2=setInterval(()=>{cov+=2;document.getElementById('coverage').textContent=cov+'X';if(cov>=100)clearInterval(j2);},20);
+  let acc=0;const j3=setInterval(()=>{acc+=2;document.getElementById('accuracy').textContent=acc+'%';if(acc>=99){clearInterval(j3);document.getElementById('accuracy').textContent='99.9%';}},20);
+},1000);
+
+// SCROLL REVEALS
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script></body></html>
