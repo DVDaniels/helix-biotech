@@ -3,105 +3,464 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Helix -- AI-Powered Precision Medicine</title>
-<link href="https://fonts.googleapis.com/css7?family=Space+Grotesk:wght@300;400;500;600;700&family=Display+Serif:ital@0;1&display=swap" rel="stylesheet">
+<title>Helix — AI-Powered Precision Medicine</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{ --bg:#020a0f; --cyan:#00d4ff; --green:#00ff94; --purple:#7c3aed; --text:#e8f4f8; --muted:#4a7a8a; --border:rgba(255,255,255,0.07);}
+:root{
+  --bg:#020a0f; --surface:#051218; --card:rgba(255,255,255,0.03);
+  --border:rgba(255,255,255,0.07); --cyan:#00d4ff; --teal:#00a896;
+  --green:#00ff94; --purple:#7c3aed; --text:#e8f4f8; --muted:#4a7a8a;
+}
 html{scroll-behavior:smooth;}
-body{font-family:'Space Grotesk',background:var(--bg);color:var(--text);overflow-x:hidden;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
+/* DNA CANVAS */
 #dna-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.4;}
 
+/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(2,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:.6rem;}
+.logo-icon{width:28px;height:28px;position:relative;}
+.logo-helix{animation:logoSpin 4s linear infinite;}
 .nav-name{font-weight:600;font-size:1.1rem;letter-spacing:.05em;}
 .nav-name span{color:var(--cyan);}
 nav ul{display:flex;gap:2.5rem;list-style:none;}
-nav ul a{color:var(--muted);text-decoration:none;font-size:.8rem;}
-.nav-btn{background:linear-gradient(135deg,var(--cyan),#00a8d0);color:var(--bg);padding:.55rem 1.3rem;font-size:.78rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;border-radius:6px;}
+nav ul a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:400;transition:color .2s;}
+nav ul a:hover{color:var(--text);}
+.nav-cta{background:linear-gradient(135deg,var(--cyan),var(--teal));color:var(--bg);padding:.55rem 1.4rem;font-size:.78rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;border-radius:4px;transition:opacity .2s;}
+.nav-cta:hover{opacity:.85;}
+@keyframes logoSpin{to{transform:rotate(360deg);}}
 
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;z-index:1;padding:6rem 3rem 3rem;}
-.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
-.badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:.72rem;font-weight:500;padding:.35rem 1rem;border-radius:100px;margin-bottom:1.5rem;}
-.badge::before{content:'☏';color:var(--green);font-size:.5rem;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%,opacity:1;}50%{opacity:.3;}}
-h1 {font-family:'Display Serif',serif;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:400;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.5rem;}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;z-index:1;padding:6rem 3rem 3rem;overflow:hidden;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.hero-pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:.72rem;font-weight:500;padding:.35rem 1rem;border-radius:100px;margin-bottom:1.5rem;}
+.hero-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:400;line-height:1.05;margin-bottom:1.5rem;}
 h1 em{font-style:italic;color:var(--cyan);}
 .hero-desc{font-size:1rem;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:2.5rem;max-width:480px;}
-.btn-cyan{background:linear-gradient(135deg,var(--cyan),#00a8d0);color:var(--bg);padding:.9rem 2rem;font-size:.85rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;border-radius:6px;box-shadow:0 0 30px rgba(0,212,255,0.3);transition:transform .2s;}
-.btn-cyan:hover{transform:translateY(-2px);}
-.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:.9rem 2rem;font-size:.85rem;cursor:pointer;font-family:inherit;border-radius:6px;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-cyan{background:linear-gradient(135deg,var(--cyan),var(--teal));color:var(--bg);padding:.9rem 2rem;font-size:.85rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;border-radius:6px;transition:transform .2s,box-shadow .2s;box-shadow:0 0 30px rgba(0,212,255,0.2);}
+.btn-cyan:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,212,255,0.4);}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:.9rem 2rem;font-size:.85rem;font-weight:400;cursor:pointer;font-family:inherit;border-radius:6px;transition:border-color .2s;}
+.btn-outline:hover{border-color:rgba(255,255,255,0.2);}
 
-.gene-display{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;}
-.gd-header{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:1rem;}
-.gd-live{color:var(--green);display:flex;align-items:center;gap:.4rem;}
-.gd-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1s infinite;}
-.gene-sequence{font-family:'Courier New',monospace;font-size:.7rem;line-height:2.2;letter-spacing:.05em;margin-bottom:1.5rem;}
-.g-A{color:#00d4ff;} .g-T{color:#00ff94;} .g-C{color:#f59e0b;} .g-G{color:#a78bfa;}
+/* GENE SEQUENCE DISPLAY */
+.gene-display{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;}
+.gene-display::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--teal),transparent);}
+.gd-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;}
+.gd-title{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.gd-status{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--green);}
+.gd-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+.sequence-display{font-family:'Courier New',monospace;font-size:.72rem;line-height:1.8;margin-bottom:1.5rem;height:80px;overflow:hidden;position:relative;}
+.sequence-display::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(transparent,rgba(5,18,24,1));}
+.seq-line{white-space:nowrap;}
+.base-A{color:#00d4ff;} .base-T{color:#00ff94;} .base-G{color:#f59e0b;} .base-C{color:#ef4444;}
+/* Progress bars */
+.analysis-bars{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.5rem;}
+.bar-row{display:flex;align-items:center;gap.8rem;}
+.bar-label{font-size:.72rem;color:var(--muted);width:140px;flex-shrink:0;}
+.bar-track{flex:1;height:4px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:2px;position:relative;}
+.bar-fill::after{content:'';position:absolute;right:0;top:-3px;width:10px;height:10px;border-radius:50%;background:inherit;}
+.b1{background:linear-gradient(90deg,var(--cyan),var(--teal));width:78%;animation:fillBar 2s ease forwards;}
+.b2{background:linear-gradient(90deg,var(--green),#00a86b);width:92%;animation:fillBar 2.2s ease forwards;}
+.b3{background:linear-gradient(90deg,#f59e0b,#d97706);width:64%;animation:fillBar 1.8s ease forwards;}
+.b4{background:linear-gradient(90deg,var(--purple),#9b5de5);width:87%;animation:fillBar 2.4s ease forwards;}
+@keyframes fillBar{from{width:0;}to{width:var(--w,100%);}}
+.bar-pct{font-size:.7rem;color:var(--text);margin-left:.8rem;width:30px;}
+/* Variant cards */
+.variant-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.variant-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:.8rem;transition:border-color .3s;}
+.variant-card:hover{border-color:rgba(0,212,255,0.2);}
+.vc-gene{font-size:.68rem;font-weight:600;color:var(--cyan);margin-bottom:.2rem;font-family:'Courier New',monospace;}
+.vc-label{font-size:.72rem;color:var(--muted);}
+.vc-risk{font-size:.85rem;font-weight:600;}
+.risk-low{color:var(--green);}
+.risk-med{color:#f59e0b;}
+.risk-high{color:#ef4444;}
 
-.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:1rem;}
-.metric-item{background:rgba(255,255,255,0.02);padding:1rem;}
-.metric-val{font-size:1.6rem;font-weight:600;color:var(--cyan);line-height:1;margin-bottom:.25rem;}
-.metric-label{font-size:.65rem;color:var(--muted);}
+/* SCROLL STORY */
+.story{padding:0 3rem;position:relative;z-index:1;}
+.story-inner{max-width:1200px;margin:0 auto;}
+.story-step{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;padding:8rem 0;border-bottom:1px solid var(--border);}
+.story-step:last-child{border-bottom:none;}
+.story-step.reverse{direction:rtl;}
+.story-step.reverse>*{direction:ltr;}
+.step-num{font-size:.65rem;font-weight:600;letter-spacing:.2em;color:var(--cyan);margin-bottom:1rem;text-transform:uppercase;}
+.step-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;line-height:1.15;margin-bottom:1.5rem;}
+.step-title em{font-style:italic;color:var(--cyan);}
+.step-desc{font-size:.95rem;font-weight:300;color:var(--muted);line-height:1.9;margin-bottom:2rem;}
+.step-points{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.step-points li{font-size:.85rem;color:var(--muted);padding-left:1.2rem;position:relative;}
+.step-points li::before{content:'→';position:absolute;left:0;color:var(--cyan);font-size:.7rem;}
 
-.stats-bann{background:rgba(255,255,255,0.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background-color:var(--border);position:relative;z-index:1;}
-.stat-item{background:var(--bg);padding:2rem;text-align:center;}
-.stat-num{font-family:'Display Serif',serif;font-size:2.5rem;font-weight:400;color:var(--cyan);line-height:1;margin-bottom:.3rem;}
-.stat-label{font-size:.72rem;color:var(--muted);}
+/* VISUAL PANELS for story steps */
+.visual-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;}
+.vp-canvas{width:100%;height:100%;}
 
-.features{padding:8rem 3rem;position:relative;z-index:1;}
-.features-inner{max-width:1200px;margin:0 auto;}
-.sec-label{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:.8rem;}
-.sec-title{font-family:'Display Serif',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:3rem;}
-.sec-title em{font-style:italic;}
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
-.feat-card{background:var(--bg);padding:2.5rem;transition:background .3s;position:relative;overflow:hidden;}
-.feat-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .4s;}
-.feat-card:hover{background:rgba(0,212,255,0.03);}
-.feat-card:hover::after{width:100%;}
-.feat-icon{width:44px;height:44px;border-radius:10px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.5rem;}
-.feat-title{font-weight:600;font-size:1rem;margin-bottom:.7rem;}
-.feat-desc{font-size:.85rem;color:var(--muted);line-height:1.7;}
+/* STATS */
+.stats-section{padding:5rem 3rem;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1;}
+.stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+.stat-block{background:var(--surface);padding:3rem 2rem;text-align:center;}
+.stat-num{font-family:'DM Serif Display',serif;font-size:3rem;font-weight:400;margin-bottom:.4rem;background:linear-gradient(135deg,var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:.75rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
 
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+/* PIPELINE */
+.pipeline{padding:8rem 3rem;position:relative;z-index:1;}
+.pipeline-inner{max-width:1200px;margin:0 auto;}
+.pipeline-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.pipeline-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.pipeline-card::after{content:'';position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--green));width:0;transition:width .4s ease;}
+.pipeline-card:hover{border-color:rgba(0,212,255,0.25);transform:translateY(-4px);}
+.pipeline-card:hover::after{width:100%;}
+.pc-phase{font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;}
+.pc-condition{font-size:1.1rem;font-weight:600;margin-bottom:.6rem;}
+.pc-desc{font-size:.83rem;color:var(--muted);line-height:1.65;margin-bottom:1.5rem;}
+.pc-progress{height:3px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;margin-bottom:.5rem;}
+.pc-bar{height:100%;background:linear-gradient(90deg,var(--cyan),var(--teal));}
+.pc-meta{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
+.rd1{transition-delay:.1s;}.rd2{transition-delay:.2s;}.rd3{transition-delay:.3s;}
 
-footer{background:rgba(255,255,255,0.02);border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+.fl{font-weight:600;font-size:1rem;}
+.fl span{color:var(--cyan);}
+.foot-links{display:flex;gap:2rem;}
+.foot-links a{font-size:.78rem;color:var(--muted);text-decoration:none;transition:color .2s;}
+.foot-links a:hover{color:var(--text);}
 
-@media(max-width:900px){.hero-inner{grid-template-columns:1fr;}.stats-bann{grid-template-columns:1fr 1fr;}.feat-grid{grid-template-columns:1fr;}nav ul{display:none;}footer{flex-direction:column;gap:1rem;}}
-</style></head>
-<body><canvas id="dna-canvas"></canvas>
-<nav><div class="nav-name">Helix<span>AI</span></div><ul><li><a href="#">Platform</a></li><li><a href="#">Research</a></li><li><a href="#">Clinical</a></li><li><a href="#">Partners</a></li></ul><button class="nav-btn">Get Access</button></nav>
-<section class="hero"><div class="hero-inner"><div><div class="badge">Live genomic analysis active</div><h1>Decode disease<br>before it <em>begins.</em></h1><p class="hero-desc">Helix combines next-generation sequencing with proprietary AI to deliver precision medicine insights at population scale.</p><div style="display:flex;gap:1rem;align-items:center;"><button class="btn-cyan">Explore the Platform</button><button class="btn-outline">Request Demo</button></div></div><div class="gene-display"><div class="gd-header"><span>GENOMIC ANALYSIS / SAMPLE-2025-8124</span><div class="gd-live">LIVE</div></div><div class="gene-sequence"><span class="g-A">A</span><span class="g-T">T</span><span class="g-C">C</span><span class="g-G">G</span><span class="g-A">A</span><span class="g-T">T</span><span class="g-C">C</span><span class="g-A">A</span><span class="g-G">G</span><span class="g-T">T</span><span class="g-C">C</pan><span class="g-A">A</span><span class="g-T">T</span><span class="g-G">G</span><span class="g-C">C</span><span class="g-A">A</span><span class="g-G">G</span><span class="g-T">T</span><span class="g-A">A</span><span class="g-C">C</span></div><div class="metrics-grid"><div class="metric-item"><div class="metric-val" id="mutations">0</div><div class="metric-label">Variants Identified</div></div><div class="metric-item"><div class="metric-val" id="coverage">0x</div><div class="metric-label">Coverage Depth</div></div><div class="metric-item"><div class="metric-val" id="accuracy">0%</div><div class="metric-label">Call Accuracy</div></div><div class="metric-item"><div class="metric-val" id="risk">LOW</div><div class="metric-label">Risk Score</div></div></div></div></div></div></section>
-<div class="stats-bann"><div class="stat-item reveal"><div class="stat-num">48M+</div><div class="stat-label">Genomes Sequenced</div></div><div class="stat-item reveal"><div class="stat-num">99.9X</div><div class="stat-label">Coverage Accuracy</div></div><div class="stat-item reveal"><div class="stat-num">28hr</div><div class="stat-label">Avg Turnaround Time</div></div><div class="stat-item reveal"><div class="stat-num">140+</div><div class="stat-label">Clinical Partners</div></div></div>
-<section class="features"><div class="features-inner"><div class="reveal"><div class="sec-label">Platform</div><h2 class="sec-title">Genomics at <em>machine speed</em></h2></div><div class="feat-grid"><div class="feat-card reveal"><div class="feat-icon">�</div><div class="feat-title">Whole Genome Sequencing</div><div class="feat-desc">Complete 3.2Gb genome analysis with 99.9% accuracy in under 28 hours. NOVASeq X Plus integration.</div></div><div class="feat-card reveal"><div class="feat-icon">🤁</div><div class="feat-title">AI-Pathogen Detection</div><div class="feat-desc">Simultaneous screening of 4,000+ pathogens with low-frequency variant detection down to 0.1%.</div></div><div class="feat-card reveal"><div class="feat-icon">💱</div><div class="feat-title">Pharmacogenomics</div><div class="feat-desc">Drug response prediction across 300+ medications. PGx panel covering all CYP enzymes.</div></div><div class="feat-card reveal"><div class="feat-icon">🔙</div><div class="feat-title">Clinical Reporting</div><div class="feat-desc">CAP-accredited reports with actionable insights. Direct EMR integration via HL7 FHIR.</div></div><div class="feat-card reveal"><div class="feat-icon">🔍</div><div class="feat-title">Predictive IA Mdels</div><div class="feat-desc">Polygenic risk scoring for 200+ diseases. Trained on 500K longitudinal patient datasets.</div></div><div class="feat-card reveal"><div class="feat-icon">🕗</div><div class="feat-title">Global Genome DB</div><div class="feat-desc">Cross-reference against 48M+ de-identified genomes. Continuous learning as data grows.</div></div></div></div></section>
-<footer><div style="font-weight:600;font-size:1rem;">Helix<span style="color:var(--cyan);">AI</span></div><div style="display:flex;gap:2rem;"><a href="#" style="font-size:.8rem;color:var(--muted);text-decoration:none;">Privacy</a><a href="#" style="font-size:.8rem;color:var(--muted);text-decoration:none;">Compliance</a><a href="#" style="font-size:.8rem;color:var(--muted);text-decoration:none;">Contact</a></div><div style="font-size:.t5rem;color:var(--muted);">© 2025 Helix Genomics Inc. CAP-accredited.</div></footer>
+/* SECTION LABEL */
+.section-label{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:.8rem;}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:400;}
+.section-title em{font-style:italic;}
+
+@media(max-width:900px){
+  .hero-inner,.story-step{grid-template-columns:1fr;}
+  .story-step.reverse{direction:ltr;}
+  nav ul{display:none;}
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .pipeline-grid{grid-template-columns:1fr;}
+  .story,.pipeline{padding:4rem 1.5rem;}
+  footer{flex-direction:column;gap:1.5rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="dna-canvas"></canvas>
+
+<nav>
+  <div class="nav-logo">
+    <svg class="logo-icon" viewBox="0 0 28 28">
+      <circle cx="14" cy="14" r="12" fill="none" stroke="url(#grad)" stroke-width="1.5"/>
+      <path d="M9 8 Q14 14 19 8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+      <path d="M9 20 Q14 14 19 20" fill="none" stroke="#00ff94" stroke-width="1.5"/>
+      <line x1="9" y1="14" x2="19" y2="14" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+      <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#00ff94"/></linearGradient></defs>
+    </svg>
+    <div class="nav-name">Helix<span>AI</span></div>
+  </div>
+  <ul>
+    <li><a href="#">Platform</a></li>
+    <li><a href="#">Pipeline</a></li>
+    <li><a href="#">Research</a></li>
+    <li><a href="#">Partnerships</a></li>
+  </ul>
+  <button class="nav-cta">Request Access</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-pill"><span class="hero-pill-dot"></span>Live genomic analysis active</div>
+      <h1>Decode disease<br>before it <em>begins.</em></h1>
+      <p class="hero-desc">Helix combines next-generation sequencing with proprietary AI to deliver precision medicine insights at population scale. We turn 3.2 billion base pairs into actionable clinical intelligence.</p>
+      <div class="hero-actions">
+        <button class="btn-cyan">Explore the Platform</button>
+        <button class="btn-outline">View Clinical Data →</button>
+      </div>
+    </div>
+    <div class="gene-display">
+      <div class="gd-header">
+        <div class="gd-title">Genomic Analysis — Patient 7841-B</div>
+        <div class="gd-status">Processing</div>
+      </div>
+      <div class="sequence-display" id="seqDisplay">
+        <!-- Filled by JS -->
+      </div>
+      <div class="analysis-bars">
+        <div class="bar-row">
+          <div class="bar-label" style="font-size:.72rem;color:var(--muted);width:140px">Pathogenic Variants</div>
+          <div class="bar-track"><div class="bar-fill b1" style="--w:78%"></div></div>
+          <div class="bar-pct">78%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="font-size:.72rem;color:var(--muted);width:140px">Coverage Depth</div>
+          <div class="bar-track"><div class="bar-fill b2" style="--w:92%"></div></div>
+          <div class="bar-pct">92%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="font-size:.72rem;color:var(--muted);width:140px">Drug Response Score</div>
+          <div class="bar-track"><div class="bar-fill b3" style="--w:64%"></div></div>
+          <div class="bar-pct">64%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="font-size:.72rem;color:var(--muted);width:140px">Confidence Index</div>
+          <div class="bar-track"><div class="bar-fill b4" style="--w:87%"></div></div>
+          <div class="bar-pct">87%</div>
+        </div>
+      </div>
+      <div class="variant-grid">
+        <div class="variant-card"><div class="vc-gene">BRCA1 c.68_69del</div><div class="vc-label">Breast Cancer Risk</div><div class="vc-risk risk-high">High Risk</div></div>
+        <div class="variant-card"><div class="vc-gene">CYP2C19*2</div><div class="vc-label">Drug Metabolism</div><div class="vc-risk risk-med">Intermediate</div></div>
+        <div class="variant-card"><div class="vc-gene">APOE ε4/ε4</div><div class="vc-label">Alzheimer's Risk</div><div class="vc-risk risk-med">Moderate</div></div>
+        <div class="variant-card"><div class="vc-gene">FTO rs9939609</div><div class="vc-label">Metabolic Marker</div><div class="vc-risk risk-low">Low Risk</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="stat-block reveal"><div class="stat-num">14M+</div><div class="stat-label">Genomes sequenced</div></div>
+    <div class="stat-block reveal rd1"><div class="stat-num">99.98%</div><div class="stat-label">Base call accuracy</div></div>
+    <div class="stat-block reveal rd2"><div class="stat-num">47</div><div class="stat-label">FDA-cleared assays</div></div>
+    <div class="stat-block reveal rd3"><div class="stat-num">6h</div><div class="stat-label">Avg. report turnaround</div></div>
+  </div>
+</div>
+
+<section class="story">
+  <div class="story-inner">
+    <div class="story-step">
+      <div class="reveal">
+        <div class="step-num">Step 01 — Sequence</div>
+        <h2 class="step-title">From blood draw to <em>base pairs</em> in hours</h2>
+        <p class="step-desc">Our CLIA-certified laboratory processes samples using Illumina NovaSeq X Plus, achieving 30x whole genome coverage with industry-leading turnaround times.</p>
+        <ul class="step-points">
+          <li>Whole genome sequencing — 3.2 billion base pairs</li>
+          <li>RNA sequencing for gene expression analysis</li>
+          <li>Methylation profiling for epigenetic insights</li>
+          <li>Structural variant detection at single-nucleotide resolution</li>
+        </ul>
+      </div>
+      <div class="reveal rd1">
+        <div class="visual-panel"><canvas class="vp-canvas" id="seqCanvas"></canvas></div>
+      </div>
+    </div>
+    <div class="story-step reverse">
+      <div class="reveal">
+        <div class="step-num">Step 02 — Analyze</div>
+        <h2 class="step-title">AI that thinks like a <em>geneticist</em></h2>
+        <p class="step-desc">Our proprietary Helix Neural Engine is trained on 14 million sequenced genomes and 40 years of clinical outcomes data. It detects patterns invisible to human review.</p>
+        <ul class="step-points">
+          <li>Variant classification across 8 pathogenicity tiers</li>
+          <li>Drug-gene interaction prediction for 3,200+ medications</li>
+          <li>Polygenic risk scoring for 50+ complex traits</li>
+          <li>Rare disease differential with 98.7% sensitivity</li>
+        </ul>
+      </div>
+      <div class="reveal rd1">
+        <div class="visual-panel"><canvas class="vp-canvas" id="aiCanvas"></canvas></div>
+      </div>
+    </div>
+    <div class="story-step">
+      <div class="reveal">
+        <div class="step-num">Step 03 — Act</div>
+        <h2 class="step-title">Clinical reports that <em>drive</em> decisions</h2>
+        <p class="step-desc">Helix reports integrate directly into Epic and Cerner workflows, surfacing genetic insights at the point of care — when they matter most.</p>
+        <ul class="step-points">
+          <li>EHR-integrated variant alerts and clinical flags</li>
+          <li>Pharmacogenomic dosing recommendations</li>
+          <li>Cascade testing guidance for at-risk family members</li>
+          <li>Patient-facing summary reports in 14 languages</li>
+        </ul>
+      </div>
+      <div class="reveal rd1">
+        <div class="visual-panel"><canvas class="vp-canvas" id="reportCanvas"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pipeline">
+  <div class="pipeline-inner">
+    <div class="reveal">
+      <div class="section-label">Pipeline</div>
+      <h2 class="section-title">Building the future of <em>medicine</em></h2>
+    </div>
+    <div class="pipeline-grid">
+      <div class="pipeline-card reveal"><div class="pc-phase">Phase III — Oncology</div><div class="pc-condition">Pan-Cancer Early Detection</div><div class="pc-desc">ctDNA liquid biopsy assay detecting 50+ cancer types from a single blood draw with 94.2% sensitivity.</div><div class="pc-progress"><div class="pc-bar" style="width:80%"></div></div><div class="pc-meta"><span>Phase III</span><span>2026 FDA submission</span></div></div>
+      <div class="pipeline-card reveal rd1"><div class="pc-phase">Phase II — Neurology</div><div class="pc-condition">Alzheimer's Risk Stratification</div><div class="pc-desc">Polygenic risk + CSF biomarker integration for presymptomatic AD identification in at-risk populations.</div><div class="pc-progress"><div class="pc-bar" style="width:55%"></div></div><div class="pc-meta"><span>Phase II</span><span>1,240 enrolled</span></div></div>
+      <div class="pipeline-card reveal rd2"><div class="pc-phase">Phase I — Cardiology</div><div class="pc-condition">HCM Predictive Screening</div><div class="pc-desc">Sarcomere variant panel with AI risk model for familial hypertrophic cardiomyopathy cascade testing.</div><div class="pc-progress"><div class="pc-bar" style="width:30%"></div></div><div class="pc-meta"><span>Phase I</span><span>IND granted</span></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fl">Helix<span>AI</span></div>
+  <div class="foot-links">
+    <a href="#">Platform</a><a href="#">Research</a><a href="#">Compliance</a><a href="#">Privacy</a><a href="#">Contact</a>
+  </div>
+  <div style="font-size:.75rem;color:var(--muted)">© 2025 Helix Genomics Inc. · CLIA #05D2196500</div>
+</footer>
+
 <script>
-// DNA CANVAS
-const c = document.getElementById('dna-canvas');
-const ctx = c.getContext('2d');
-c.width = window.innerWidth; c.height = window.innerHeight;
-function drawDNA(t) {
-  ctx.clearRect(0,0,c.width,c.height);
-  for(let y=0;y<c.height;y+=8) {
-    const x1=c.width/2+Math.sin(y*.02+t)*80;
-    ctx.beginPath();ctx.arc(x1,y,2,0,Math.PI*2);ctx.fillStyle=`rgba(0,212,255,{0+0.3*Math.sin(yth*0.05)})`;ctx.fill();
-    const x2=c.width/2-Math.sin(yth*.02+t)*80;
-    ctx.beginPath();ctx.arc(x2,y,2,0,Math.PI*2);ctx.fillStyle=`rgba(0,255,148,0.25)`;ctx.fill();
-    if(y%20===0){ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);ctx.strokeStyle=`rgba(0,168,150,0.15)`;ctx.stroke();}
+// ── DNA CANVAS ANIMATION ──
+const dnaCvs = document.getElementById('dna-canvas');
+const dnaCtx = dnaCvs.getContext('2d');
+dnaCvs.width = window.innerWidth;
+dnaCvs.height = window.innerHeight;
+
+const strands = [];
+for(let i=0;i<3;i++){
+  strands.push({x: window.innerWidth*(0.2+i*0.3), speed:0.3+i*0.1, offset:i*Math.PI*2/3});
+}
+
+function drawDNA(t){
+  dnaCtx.clearRect(0,0,dnaCvs.width,dnaCvs.height);
+  strands.forEach(s=>{
+    const amp=40, freq=0.02;
+    for(let y=0;y<dnaCvs.height+20;y+=4){
+      const x1=s.x+Math.sin(y*freq+t*s.speed+s.offset)*amp;
+      const x2=s.x-Math.sin(y*freq+t*s.speed+s.offset)*amp;
+      const alpha=0.3+Math.sin(y*freq+t*s.speed)*0.2;
+      // Strand 1
+      dnaCtx.beginPath();
+      dnaCtx.arc(x1,y,2,0,Math.PI*2);
+      dnaCtx.fillStyle=`rgba(0,212,255,${alpha})`;
+      dnaCtx.fill();
+      // Strand 2
+      dnaCtx.beginPath();
+      dnaCtx.arc(x2,y,2,0,Math.PI*2);
+      dnaCtx.fillStyle=`rgba(0,255,148,${alpha})`;
+      dnaCtx.fill();
+      // Rungs every 20px
+      if(y%20===0){
+        dnaCtx.beginPath();
+        dnaCtx.moveTo(x1,y); dnaCtx.lineTo(x2,y);
+        dnaCtx.strokeStyle=`rgba(0,168,150,${alpha*0.5})`;
+        dnaCtx.lineWidth=1;
+        dnaCtx.stroke();
+      }
+    }
+  });
+}
+
+let dnaT=0;
+function animDNA(){dnaT+=0.02;drawDNA(dnaT);requestAnimationFrame(animDNA);}
+animDNA();
+
+window.addEventListener('resize',()=>{
+  dnaCvs.width=window.innerWidth; dnaCvs.height=window.innerHeight;
+});
+
+// ── GENE SEQUENCE TICKER ──
+const bases=['A','T','G','C'];
+const colors={'A':'base-A','T':'base-T','G':'base-G','C':'base-C'};
+const seqDisp=document.getElementById('seqDisplay');
+function addSeqLine(){
+  const line=document.createElement('div');
+  line.className='seq-line';
+  let html='';
+  for(let i=0;i<60;i++){
+    const b=bases[Math.floor(Math.random()*4)];
+    html+=`<span class="${colors[b]}">${b}</span>`;
+  }
+  line.innerHTML=html;
+  seqDisp.insertBefore(line,seqDisp.firstChild);
+  if(seqDisp.children.length>8)seqDisp.removeChild(seqDisp.lastChild);
+}
+setInterval(addSeqLine,120);
+for(let i=0;i<8;i++)addSeqLine();
+
+// ── STORY CANVASES ──
+function drawSeqViz(canvas){
+  const ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight;
+  const W=canvas.width,H=canvas.height;
+  ctx.fillStyle='transparent';
+  // Waveform bars
+  for(let i=0;i<80;i++){
+    const h=Math.random()*H*0.6+H*0.1;
+    const x=(i/80)*W;
+    const c=['rgba(0,212,255,0.7)','rgba(0,255,148,0.7)','rgba(245,158,11,0.7)','rgba(239,68,68,0.7)'][Math.floor(Math.random()*4)];
+    ctx.fillStyle=c;
+    ctx.fillRect(x,H/2-h/2,W/80-1,h);
   }
 }
-let time=0;(function loop(){time+=.02;drawDNA(time);requestAnimationFrame(loop);})();
-window.addEventListener('resize',()=>{c.width=window.innerWidth;c.height=window.innerHeight;});
+function drawAIViz(canvas){
+  const ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight;
+  const W=canvas.width,H=canvas.height;
+  // Neural network
+  const layers=[[1],[3,3],[5,5],[3,3],[1]];
+  const lx=[0.1,0.3,0.5,0.7,0.9].map(v=>v*W);
+  const nodes=[];
+  layers.forEach((layer,li)=>{
+    const count=layer.reduce((a,b)=>a+b,0);
+    for(let ni=0;ni<count;ni++){
+      const y=(ni/(count-1||1))*(H*0.6)+H*0.2;
+      nodes.push({x:lx[li],y,li});
+    }
+  });
+  // Connections
+  nodes.forEach(n=>{
+    nodes.filter(m=>m.li===n.li+1).forEach(m=>{
+      ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);
+      ctx.strokeStyle='rgba(0,212,255,0.08)';ctx.lineWidth=1;ctx.stroke();
+    });
+  });
+  // Nodes
+  nodes.forEach(n=>{
+    ctx.beginPath();ctx.arc(n.x,n.y,8,0,Math.PI*2);
+    const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,8);
+    g.addColorStop(0,'rgba(0,212,255,0.8)');g.addColorStop(1,'rgba(0,168,150,0.2)');
+    ctx.fillStyle=g;ctx.fill();
+  });
+}
+function drawReportViz(canvas){
+  const ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight;
+  const W=canvas.width,H=canvas.height;
+  // Fake report UI lines
+  const rows=[['BRCA1','Pathogenic','High',0.9],['CYP2C19','VUS','Mod',0.6],['APOE','Pathogenic','High',0.85],['FTO','Benign','Low',0.15],['TP53','Likely Pathogenic','High',0.78]];
+  ctx.fillStyle='rgba(255,255,255,0.03)';ctx.fillRect(20,20,W-40,H-40);
+  rows.forEach((row,i)=>{
+    const y=60+i*((H-80)/rows.length);
+    ctx.fillStyle='rgba(0,212,255,0.7)';ctx.font='bold 11px monospace';ctx.fillText(row[0],40,y);
+    ctx.fillStyle='rgba(255,255,255,0.4)';ctx.font='11px monospace';ctx.fillText(row[1],130,y);
+    const c=row[3]>0.7?'rgba(239,68,68,0.7)':row[3]>0.4?'rgba(245,158,11,0.7)':'rgba(0,255,148,0.7)';
+    ctx.fillStyle=c;ctx.fillText(row[2],260,y);
+    ctx.fillStyle='rgba(255,255,255,0.06)';ctx.fillRect(320,y-10,(W-360)*row[3],14);
+    ctx.fillStyle=c;ctx.fillRect(320,y-10,(W-360)*row[3],14);
+  });
+}
 
-// ANIMATE METRICS
+// Draw after layout
 setTimeout(()=>{
-  let m=0;const i=setInterval(()=>{m+=47;document.getElementById('mutations').textContent=m;if(m>=2347)clearInterval(i);},20);
-  let cov=0;const j2=setInterval(()=>{cov+=2;document.getElementById('coverage').textContent=cov+'X';if(cov>=100)clearInterval(j2);},20);
-  let acc=0;const j3=setInterval(()=>{acc+=2;document.getElementById('accuracy').textContent=acc+'%';if(acc>=99){clearInterval(j3);document.getElementById('accuracy').textContent='99.9%';}},20);
-},1000);
+  const sc=document.getElementById('seqCanvas');
+  const ac=document.getElementById('aiCanvas');
+  const rc=document.getElementById('reportCanvas');
+  if(sc)drawSeqViz(sc);
+  if(ac)drawAIViz(ac);
+  if(rc)drawReportViz(rc);
+},300);
 
 // SCROLL REVEALS
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+const obs=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script></body></html>
+
+// SCROLL PARALLAX on DNA
+window.addEventListener('scroll',()=>{
+  dnaCvs.style.transform=`translateY(${window.scrollY*0.1}px)`;
+},{passive:true});
+</script>
+</body>
+</html>
